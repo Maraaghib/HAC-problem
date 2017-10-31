@@ -31,6 +31,7 @@ int main(int argc, char const *argv[]) {
             usage("Not enough memory !");
     }
 
+    // Pour chaque variable, on lui affecte un indice qui lui est unique
     for (int v = 0; v < n; v++) {
         for (int h = 0; h < k; h++) {
             X[v][h] = (k * v) + 1 + h; // Indice de la variable
@@ -40,7 +41,15 @@ int main(int argc, char const *argv[]) {
     /* 1) Pour chaque sommet v ∈ V , il y a un unique entier h t.q. Xv,h est vrai */
 
     for (int v = 0; v < n; v++) {
+        for (int h = 0; h < k; h++) {
+            fprintf(fd, "%d ", X[v][h]);
+            fprintf(fd, "0\n");
+        }
 
+        for (int h = 0; h < k-1; h++) {
+            fprintf(fd, "-%d -%d ", X[v][h], X[v][h+1]);
+            fprintf(fd, "0\n");
+        }
     }
 
 
