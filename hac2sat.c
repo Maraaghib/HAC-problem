@@ -31,6 +31,12 @@ int main(int argc, char const *argv[]) {
             usage("Not enough memory !");
     }
 
+    for (int v = 0; v < n; v++) {
+        for (int h = 0; h < k; h++) {
+            X[v][h] = (k * v) + 1 + h; // Indice de la variable
+        }
+    }
+
     /* 1) Pour chaque sommet v ∈ V , il y a un unique entier h t.q. Xv,h est vrai */
 
     for (int v = 0; v < n; v++) {
