@@ -86,6 +86,12 @@ int main(int argc, char const *argv[]) {
         }
     }
 
+    /* 2) Il y a un unique sommet v t.q. d(v) = 0 (“v est la racine”) */
+    for (int v = 0; v < n; v++) {
+        fprintf(fd, "%d ", X[v][0]);
+        fprintf(fd, "0\n");
+        nbclauses++;
+    }
 
     rewind(fd);
     fprintf(fd, "c\nc Première contrainte\nc\np cnf %d %d\n", nbvar, nbclauses);
