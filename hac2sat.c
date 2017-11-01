@@ -89,14 +89,14 @@ int main(int argc, char const *argv[]) {
 
     /* 2) Il y a un unique sommet v t.q. d(v) = 0 (“v est la racine”) */
     fprintf(fd, "c\nc DEUXIÈME CONTRAINTE\nc\n");
-    fprintf(fd, "c\nIl y a au moins un sommet de profondeur 0\nc\n");
+    fprintf(fd, "c\nc Il y a au moins un sommet de profondeur 0\nc\n");
     for (int v = 0; v < n; v++) {
         fprintf(fd, "%d ", X[v][0]);
         fprintf(fd, "0\n");
         nbclauses++;
     }
 
-    fprintf(fd, "c\nDeux sommets différents ne peuvent pas avoir une profondeur 0\nc\n");
+    fprintf(fd, "c\nc Deux sommets différents ne peuvent pas avoir une profondeur 0\nc\n");
     for (int v = 0; v < n; v++) {
         for (int l = v; l < n-1; l++) {
             fprintf(fd, "-%d -%d 0\n", X[v][0], X[l][0]);
@@ -104,6 +104,16 @@ int main(int argc, char const *argv[]) {
         }
     }
 
+    /* Il y a au moins un sommet v t.q. d(v) = k. */
+    fprintf(fd, "c\nc TROISIÈME CONTRAINTE\nc\n");
+    fprintf(fd, "c\nc Il y a au moins un sommet de profondeur k\nc\n");
+    for (int v = 0; v < n; v++) {
+        fprintf(fd, "%d ", X[v][k-1]);
+        fprintf(fd, "0\n");
+        nbclauses++;
+    }
+
+    // Se positionner au début du fichier pour mettre à jour le nombre de clauses
     rewind(fd);
     fprintf(fd, "c\nc PREMIÈRE CONTRAINTE\nc\np cnf %d %d\n", nbvar, nbclauses);
     printf("%d\n", nbclauses);
