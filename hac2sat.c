@@ -75,7 +75,7 @@ int main(int argc, char const *argv[]) {
         nbclauses++;
     }
     for (int v = 0; v < n; v++) {
-        fprintf(fd, "c Le sommet (%d) ne peut pas avoir deux profondeur différents\n", v);
+        fprintf(fd, "c\nc Le sommet (%d) ne peut pas avoir deux profondeur différents\nc\n", v);
         // Un sommet ne peut pas avoir deux profondeurs différents
         for (int l = 0; l < k; l++) {
             for (int h = l; h < k-1; h++) {
@@ -87,10 +87,19 @@ int main(int argc, char const *argv[]) {
     }
 
     /* 2) Il y a un unique sommet v t.q. d(v) = 0 (“v est la racine”) */
+    fprintf(fd, "c\nIl y a au moins un sommet de profondeur 0\nc\n");
     for (int v = 0; v < n; v++) {
         fprintf(fd, "%d ", X[v][0]);
         fprintf(fd, "0\n");
         nbclauses++;
+    }
+
+    fprintf(fd, "c\nDeux sommets différents ne peuvent pas avoir une profondeur 0\nc\n");
+    for (int v = 0; v < n; v++) {
+        for (int l = v; l < n-1; l++) {
+            fprintf(fd, "-%d -%d 0\n", X[v][0], X[l][0]);
+            nbclauses++;
+        }
     }
 
     rewind(fd);
