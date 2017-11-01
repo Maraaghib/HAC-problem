@@ -61,12 +61,13 @@ int main(int argc, char const *argv[]) {
         }
     }
 
-    fprintf(fd, "c\nc Première contrainte\nc\np cnf %d 000\n", nbvar);
+
 
 
     /* 1) Pour chaque sommet v ∈ V , il y a un unique entier h t.q. Xv,h est vrai */
-
+    fprintf(fd, "c\nc PREMIÈRE CONTRAINTE\nc\np cnf %d 000\n", nbvar);
     // Il existe un sommet de profondeur h
+    fprintf(fd, "c\nc Il existe au moins un sommet de profondeur h\nc\n");
     for (int v = 0; v < n; v++) {
         for (int h = 0; h < k; h++) {
             fprintf(fd, "%d ", X[v][h]); // Xv,0 V Xv,1 V Xv,2 V ... V Xv,k
@@ -87,6 +88,7 @@ int main(int argc, char const *argv[]) {
     }
 
     /* 2) Il y a un unique sommet v t.q. d(v) = 0 (“v est la racine”) */
+    fprintf(fd, "c\nc DEUXIÈME CONTRAINTE\nc\n");
     fprintf(fd, "c\nIl y a au moins un sommet de profondeur 0\nc\n");
     for (int v = 0; v < n; v++) {
         fprintf(fd, "%d ", X[v][0]);
@@ -103,7 +105,7 @@ int main(int argc, char const *argv[]) {
     }
 
     rewind(fd);
-    fprintf(fd, "c\nc Première contrainte\nc\np cnf %d %d\n", nbvar, nbclauses);
+    fprintf(fd, "c\nc PREMIÈRE CONTRAINTE\nc\np cnf %d %d\n", nbvar, nbclauses);
     printf("%d\n", nbclauses);
     // Libération des tableaux
     for (int i = 0; i < n; i++) {
