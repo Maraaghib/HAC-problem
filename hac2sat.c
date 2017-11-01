@@ -88,9 +88,9 @@ int main(int argc, char const *argv[]) {
     fprintf(fd, "c\nc Il y a au moins un sommet de profondeur 0\nc\n");
     for (int v = 1; v <= n; v++) {
         fprintf(fd, "%d ", X[v][0]);
-        fprintf(fd, "0\n");
-        nbclauses++;
     }
+    fprintf(fd, "0\n");
+    nbclauses++;
 
     fprintf(fd, "c\nc Deux sommets différents ne peuvent pas avoir une profondeur 0\nc\n");
     for (int v = 1; v <= n; v++) {
@@ -105,9 +105,9 @@ int main(int argc, char const *argv[]) {
     fprintf(fd, "c\nc Il y a au moins un sommet de profondeur k\nc\n");
     for (int v = 1; v <= n; v++) {
         fprintf(fd, "%d ", X[v][k]);
-        fprintf(fd, "0\n");
-        nbclauses++;
     }
+    fprintf(fd, "0\n");
+    nbclauses++;
 
     /*
         4) Pour chaque sommet v, si d(v) > 0, alors il existe un sommet u tel que
