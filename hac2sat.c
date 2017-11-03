@@ -3,7 +3,7 @@
 #include "all.h"
 
 void usage(char* message) {
-    fprintf(stderr, "%s\n", message);
+    fprintf(stderr, "Usage: %s\n", message);
     exit(EXIT_FAILURE);
 }
 
@@ -11,9 +11,13 @@ int main(int argc, char const *argv[]) {
 
     int n = orderG(); // Nombre de sommets du graphe
     int m = sizeG(); // Nombre d'arêtes du graphe
+    int nbclauses = 0;
+
+    if (atoi(argv[1]) > m) {
+        usage("The depth must be less than or equal to |E|");
+    }
     int k = atoi(argv[1]); // La profondeur du graphe
     int nbvar = n * (k+1);
-    int nbclauses = 0;
 
     // Création/Ouverture du fichier
     FILE* fd = NULL;
