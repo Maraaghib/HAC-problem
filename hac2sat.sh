@@ -9,20 +9,20 @@ while [[ -z $reponse || $reponse == 'O' ]]; do
     read graph
 
     # Tester si le fichier .c du graphe existe
-    if [[ ! -e graphs/$graph.c ]]; then
-        echo "Ce graphe n'existe pas"
-        return
-    fi
+    while [[ ! -e graphs/$graph.c ]]; do
+        echo "Ce graphe n'existe pas. veuillez réessayer SVP"
+        read graph
+    done
 
     # Récupérer la profondeur du graphe
     echo -e "Donnez une profondeur du graphe: \c"
     read k
 
     # Tester si le caractère saisi est un nombre ou non
-    if [[ ! $k =~ ^[0-9]+$ ]]; then
+    while [[ ! $k =~ ^[0-9]+$ ]]; do
         echo "La profondeur doit être un entier"
-        return
-    fi
+        read k
+    done
 
     # Copier le graphe sur lequel on fait le test dans le répertoire courant
     cp graphs/$graph.c ./
@@ -30,8 +30,11 @@ while [[ -z $reponse || $reponse == 'O' ]]; do
     make clean # Nettoyer l'espace de travail
     make # Compiler le programme hac2sat
     rm -f $graph.c # Supprimer la copie du graphe sur lequel nous travaillions
-    ./hac2sat $k # Exécuter le programme pour générer le fichier de format DIMACS
-    ./glucose-syrup/simp/glucose formule.cnf # Lancer le solveur
+    #./hac2sat $k | tail -n 1 | grep -q 'E' && echo "Y a un problème" # Exécuter le programme pour générer le fichier de format DIMACS
+    TEST_OUT=$(./hac2sat $k 2>&1)
+    echo $TEST_OUT
+    echo $TEST_OUT | grep -v 'Usage' && ./glucose-syrup/simp/glucose formule.cnf # Lancer le solveur s'il n'y a pas erreur d'entrée
+
 
     reponse=''
     while [[ $reponse != 'N' && $reponse != 'O' ]]; do
