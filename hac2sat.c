@@ -9,18 +9,16 @@ void usage(char* message) {
 
 // BEGIN TEST
 int orderG(){
-    return 20;
-}
+return 20;}
 
 int sizeG(){
-    return 10;
-}
+return 10;}
 
 int are_adjacent(int u, int v){
-    if(0<= u && 0<=v && u<orderG() && v<orderG()){
-        return (u+v==19);
-    }
-    else return 0;
+if(0<= u && 0<=v && u<orderG() && v<orderG()){
+  return (u+v==19);
+ }
+ else return 0;
 }
 // END TEST
 
@@ -114,7 +112,23 @@ int main(int argc, char const *argv[]) {
          uv ∈ E et d(u) = d(v) − 1 (“le sommet u est un parent potentiel de v dans l’arbre”)
     */
     fprintf(fd, "c\nc QUATRIÈME CONTRAINTE\nc\n");
+    // for (int v = 1; v <= n; v++) {
+    //     for (int h = 1; h <= k; h++) {
+    //         fprintf(fd, "%d\n", X[v][h]);
+    //     }
+    // }
 
+    for (int v = 1; v <= n; v++) { // Pour chaque sommet v
+        for (int h = 1; h <= k; h++) { // Si d(v) > 0
+            for (int u = 1; u <= n; u++) { // Il existe un sommet u tel que
+                if ((v != u) && are_adjacent((v-1), (u-1)) == 1) { // uv ∈ E
+                        fprintf(fd, "%d ", X[u][h-1]);
+                }
+            }
+        }
+        fprintf(fd, "0\n");
+        nbclauses++;
+    }
 
 
     // Se positionner au début du fichier pour mettre à jour le nombre de clauses
