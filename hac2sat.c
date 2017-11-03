@@ -1,27 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-// #include "all.h"
+#include "all.h"
 
 void usage(char* message) {
     fprintf(stderr, "%s\n", message);
     exit(EXIT_FAILURE);
 }
-
-// BEGIN TEST
-int orderG(){
-return 20;}
-
-int sizeG(){
-return 10;}
-
-int are_adjacent(int u, int v){
-if(0<= u && 0<=v && u<orderG() && v<orderG()){
-  return (u+v==19);
- }
- else return 0;
-}
-// END TEST
-
 
 int main(int argc, char const *argv[]) {
 
