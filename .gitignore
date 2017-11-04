@@ -1,5 +1,11 @@
 #Executables
 hac2sat
+vars2graph
+
+# Outputs
+out/*
+graphs/hac.c
+lex.yy.*
 
 # Prerequisites
 *.d
