@@ -21,7 +21,7 @@ int main(int argc, char const *argv[]) {
 
     // Création/Ouverture du fichier
     FILE* fd = NULL;
-    fd = fopen("formule.cnf", "w");
+    fd = fopen("out/formule.cnf", "w");
     if(fd == NULL){
         usage("Impossible to open the file !");
     }
@@ -100,22 +100,18 @@ int main(int argc, char const *argv[]) {
          uv ∈ E et d(u) = d(v) − 1 (“le sommet u est un parent potentiel de v dans l’arbre”)
     */
     fprintf(fd, "c\nc QUATRIÈME CONTRAINTE\nc\n");
-    // for (int v = 1; v <= n; v++) {
-    //     for (int h = 1; h <= k; h++) {
-    //         fprintf(fd, "%d\n", X[v][h]);
-    //     }
-    // }
 
     for (int v = 1; v <= n; v++) { // Pour chaque sommet v
         for (int h = 1; h <= k; h++) { // Si d(v) > 0
+            fprintf(fd, "-%d ", X[v][h]);
             for (int u = 1; u <= n; u++) { // Il existe un sommet u tel que
                 if ((v != u) && are_adjacent((v-1), (u-1)) == 1) { // uv ∈ E
-                        fprintf(fd, "%d ", X[u][h-1]);
+                    fprintf(fd, "%d ", X[u][h-1]);
                 }
             }
+            fprintf(fd, "0\n");
+            nbclauses++;
         }
-        fprintf(fd, "0\n");
-        nbclauses++;
     }
 
 
