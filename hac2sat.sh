@@ -20,7 +20,7 @@ while [[ -z $reponse || $reponse == 'O' ]]; do
 
     # Tester si le caractère saisi est un nombre ou non
     while [[ ! $k =~ ^[0-9]+$ ]]; do
-        echo "La profondeur doit être un entier"
+        echo "La profondeur doit être un entier. Veuillez réessayer SVP"
         read k
     done
 
@@ -33,7 +33,8 @@ while [[ -z $reponse || $reponse == 'O' ]]; do
     #./hac2sat $k | tail -n 1 | grep -q 'E' && echo "Y a un problème" # Exécuter le programme pour générer le fichier de format DIMACS
     TEST_OUT=$(./hac2sat $k 2>&1)
     echo $TEST_OUT
-    echo $TEST_OUT | grep -v 'Usage' && ./glucose-syrup/simp/glucose -model formule.cnf > result # Lancer le solveur s'il n'y a pas erreur d'entrée
+    echo $TEST_OUT | grep -v 'Usage' && ./glucose-syrup/simp/glucose -model out/formule.cnf > out/result  # Lancer le solveur s'il n'y a pas erreur d'entrée
+    ./vars2graph $k < out/result > graphs/hac.c
 
 
     reponse=''
